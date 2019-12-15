@@ -22,4 +22,7 @@ app.get('/signUp', (req : any,res : any) => {
 	res.render('pages/signUp',{test: 'fc'})
 })
 
+app.get('/logged', (req: any,res :any) => {
+	res.render('pages/logged',{test: 'fc'})
+})
 
