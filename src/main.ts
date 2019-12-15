@@ -14,6 +14,9 @@ app.get('/', (req: any, res: any) => {
     res.render('pages/home', { test: 'fc' })
 })
 
+app.get('/signIn', (req : any,res : any) => {
+	res.render('pages/signIn',{test: 'fc'})
+})
 
 
 
