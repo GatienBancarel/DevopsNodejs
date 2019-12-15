@@ -24,22 +24,31 @@
                 <div class="ui container">
                     <div class="column">
                         <h2 class="ui inverted header"><div class="content">Sign in to your account</div></h2>
-                        <form action="" class="ui large form">
+                        <form action="/signIn" method="post" class="ui large form">
                             <div class="ui stacked segment">
                                 <div class="field">
+                                    <div class="ui main container">
+                                        <% if(locals.error) {%>
+                                            <div class="ui negative message">
+                                                <%= error %>
+                                            </div>
+                                        <% } %> 
+                                    </div>
                                     <div class="ui left icon input">
                                         <i class="user icon"></i>
-                                        <input type="text" name="email address" placeholder="email address" >
+                                        <input type="text" name="email" placeholder="email" >
                                     </div>
-                                </div>
+                            </div>
                                 <div class="field">
                                         <div class="ui left icon input">
                                             <i class="lock icon"></i>
                                             <input type="text" name="password" placeholder="password" >
                                         </div>
                                 </div>
-                                <div>
-                                    <a class="ui large secondary submit button" href="/logged">Sign In</a> 
+                                <div> 
+                                    <button type="submit" class="ui large secondary submit button">
+                                        <i>Login</i>
+                                    </button>
                                 </div>
                             </div>
                         </form>
