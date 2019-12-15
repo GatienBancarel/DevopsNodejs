@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/GatienBancarel/DevopsNodejs/issues"
   },
-  "homepage": "https://github.com/GatienBancarel/DevopsNodejs#readme"
+  "homepage": "https://github.com/GatienBancarel/DevopsNodejs#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2"
+  }
 }
