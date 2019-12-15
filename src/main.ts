@@ -42,6 +42,15 @@ app.post('/signIn', (req : any,res : any) => {
     console.log(req.body.email)
 })
 
+app.post('/signUp', (req : any,res : any) => {
+    if (req.body.first_name === undefined || req.body.first_name ===  "" || req.body.password === undefined || req.body.password ===  "" || req.body.last_name === undefined || req.body.last_name ===  "" || req.body.password_confirmation === undefined || req.body.password_confirmation ===  "" || req.body.email === undefined || req.body.email ===  "") {
+        res.render('pages/signUp',{error: "You need to write something"})
+    }
+    console.log(req.body.email)
+    res.redirect('/logged')
+
+})
+
 const PORT = 8080;
 app.listen(PORT)
 
