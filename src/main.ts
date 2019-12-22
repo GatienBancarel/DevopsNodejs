@@ -1,3 +1,5 @@
+import { UsersDB } from "./dataBase/userDB";
+
 //import { emptyField } from './blindage/emptyField'
 
 let express = require("express")
@@ -25,7 +27,7 @@ app.get('/signIn', (req : any,res : any) => {
 })
 
 app.get('/signUp', (req : any,res : any) => {
-	res.render('pages/signUp',{test: 'fc'})
+    res.render('pages/signUp',{test: 'fc'})
 })
 
 app.get('/logged', (req: any,res :any) => {
@@ -37,18 +39,29 @@ app.get('/logged', (req: any,res :any) => {
 app.post('/signIn', (req : any,res : any) => {
     if (req.body.email === undefined || req.body.email ===  "" || req.body.password === undefined || req.body.password ===  "") {
         res.render('pages/signIn',{error: "You need to write something"})
+        return
     }
-    res.redirect('/logged')
-    console.log(req.body.email)
+    UsersDB.exist(req.body.email, req.body.password, (err : any) => {
+        if (err) {
+            res.render('pages/signIn',{error: "You need to write valid email and password"})
+        } else {
+            res.redirect('/logged')
+        } 
+    })
 })
 
 app.post('/signUp', (req : any,res : any) => {
     if (req.body.first_name === undefined || req.body.first_name ===  "" || req.body.password === undefined || req.body.password ===  "" || req.body.last_name === undefined || req.body.last_name ===  "" || req.body.password_confirmation === undefined || req.body.password_confirmation ===  "" || req.body.email === undefined || req.body.email ===  "") {
         res.render('pages/signUp',{error: "You need to write something"})
+        return
     }
-    console.log(req.body.email)
+    UsersDB.insert(
+        req.body.first_name,
+        req.body.last_name,
+        req.body.email,
+        req.body.password
+    )
     res.redirect('/logged')
-
 })
 
 app.post('/logged/add', (req : any,res : any) => {
