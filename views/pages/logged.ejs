@@ -6,7 +6,8 @@
     <title>HOME</title>
     <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" /></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
+    </script>
 
 </head>
 
@@ -18,30 +19,79 @@
         <div class=" item"> <a href="/signIn">SignIn</a></div>
         <div class=" item"> <a href="/signUp">SignUp</a> </div>
     </div>
-    <div class="ui middle aligned center aligned grid"> 
-         <div class="ui vertical stripe segment" >
+    <div class="ui middle aligned center aligned grid">
+        <div class="ui vertical stripe segment">
             <div class="ui inverted vertical masthead center aligned segment">
                 <div class="ui container">
                     <div class="ui text container">
-                       
+
                     </div>
                 </div>
                 <div class="col-md-6 col-md-offset-3">
                     <h1>Hello </h1>
-                    <button class="ui fluid large submit button" id="show-metrics">
-                      Bring the metrics
-                    </button>
-                    <div id="metrics">reult
-                        <u1></u1>
-
-                    </div>
-                    
-
-                  </div>
-    
+                    <form action="/loggeg" method="post" class="ui form">
+                        <div class="ui stacked segment">
+                            <div class="ui main container">
+                                <% if(locals.error) {%>
+                                <div class="ui negative message">
+                                    <%= error %>
+                                </div>
+                                <% } %>
+                            </div>
+                            <div class="field">
+                                <div class="field">
+                                    <div>
+                                        <label for="name_of_metric"></label>
+                                        <input type="text" name="name_of_metric" placeholder="name of metric">
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="ui large secondary submit button">
+                                        <i>Add metric</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class=" field">
+                                <div class=field>
+                                    <div>
+                                        <label for="name_of_metric"></label>
+                                        <input type="text" name="delete_name_of_metric" placeholder="name of metric">
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="ui large secondary submit button">
+                                        <i>Delete metric</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div>
+                                    <div>
+                                        <label for="name_of_metric"></label>
+                                        <input type="text" name="old_name_of_metric" placeholder="old name of metric">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div>
+                                        <label for="name_of_metric"></label>
+                                        <input type="text" name="new_name_of_metric" placeholder="new name of metric">
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="ui large secondary submit button">
+                                        <i>Update metric</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="ui large secondary submit button">
+                                    <i>Find metric</i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-     
     </div>
-
 </body>

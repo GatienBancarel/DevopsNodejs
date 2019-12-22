@@ -51,6 +51,15 @@ app.post('/signUp', (req : any,res : any) => {
 
 })
 
+app.post('/logged', (req : any,res : any) => {
+    if (req.body.name_of_metric === undefined || req.body.name_of_metric ===  "") {
+        res.render('pages/logged',{error: "You need to write something"})
+    }
+    console.log(req.body.name_of_metric)
+    res.redirect('/logged')
+
+})
+
 const PORT = 8080;
 app.listen(PORT)
 
