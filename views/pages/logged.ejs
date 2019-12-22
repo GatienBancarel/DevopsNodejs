@@ -28,16 +28,16 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-md-offset-3">
-                    <h1>Hello </h1>
-                    <form action="/loggeg" method="post" class="ui form">
+                    <h1>Welcome </h1>
+                    <div class="ui main container">
+                        <% if(locals.error) {%>
+                        <div class="ui negative message">
+                            <%= error %>
+                        </div>
+                        <% } %>
+                    </div>
+                    <form action="/logged/add" method="post" class="ui form">
                         <div class="ui stacked segment">
-                            <div class="ui main container">
-                                <% if(locals.error) {%>
-                                <div class="ui negative message">
-                                    <%= error %>
-                                </div>
-                                <% } %>
-                            </div>
                             <div class="field">
                                 <div class="field">
                                     <div>
@@ -51,6 +51,10 @@
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                    </form>
+                    <form action="/logged/delete" method="post" class="ui form">
+                        <div class="ui stacked segment">
                             <div class=" field">
                                 <div class=field>
                                     <div>
@@ -64,6 +68,10 @@
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                    </form>
+                    <form action="/logged/update" method="post" class="ui form">
+                        <div class="ui stacked segment">
                             <div class="field">
                                 <div>
                                     <div>
@@ -83,6 +91,10 @@
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                    </form>
+                    <form action="/logged/find" method="post" class="ui form">
+                        <div class="ui stacked segment">
                             <div>
                                 <button type="submit" class="ui large secondary submit button">
                                     <i>Find metric</i>

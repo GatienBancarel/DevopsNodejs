@@ -51,13 +51,34 @@ app.post('/signUp', (req : any,res : any) => {
 
 })
 
-app.post('/logged', (req : any,res : any) => {
+app.post('/logged/add', (req : any,res : any) => {
     if (req.body.name_of_metric === undefined || req.body.name_of_metric ===  "") {
         res.render('pages/logged',{error: "You need to write something"})
     }
     console.log(req.body.name_of_metric)
     res.redirect('/logged')
 
+})
+
+app.post('/logged/delete', (req : any,res : any) => {
+    if (req.body.delete_name_of_metric === undefined || req.body.delete_name_of_metric ===  "") {
+        res.render('pages/logged',{error: "You need to write something"})
+    }
+    console.log(req.body.delete_name_of_metric)
+    res.redirect('/logged')
+
+})
+
+app.post('/logged/update', (req : any,res : any) => {
+    if (req.body.old_name_of_metric === undefined || req.body.old_name_of_metric ===  "" || req.body.new_name_of_metric === undefined || req.body.new_name_of_metric ===  "") {
+        res.render('pages/logged',{error: "You need to write something"})
+    }
+    console.log(req.body.new_name_of_metric)
+    res.redirect('/logged')
+})
+
+app.post('/logged/find', (req : any,res : any) => {
+    res.render('ok ca marche')
 })
 
 const PORT = 8080;
