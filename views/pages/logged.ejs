@@ -53,46 +53,6 @@
                             </div>
                         </div>
                     </form>
-                    <form action="/logged/delete" method="post" class="ui form">
-                        <div class="ui stacked segment">
-                            <div class=" field">
-                                <div class=field>
-                                    <div>
-                                        <label for="name_of_metric"></label>
-                                        <input type="text" name="delete_name_of_metric" placeholder="name of metric">
-                                    </div>
-                                </div>
-                                <div>
-                                    <button type="submit" class="ui large secondary submit button">
-                                        <i>Delete metric</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <form action="/logged/update" method="post" class="ui form">
-                        <div class="ui stacked segment">
-                            <div class="field">
-                                <div>
-                                    <div>
-                                        <label for="name_of_metric"></label>
-                                        <input type="text" name="old_name_of_metric" placeholder="old name of metric">
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <div>
-                                        <label for="name_of_metric"></label>
-                                        <input type="text" name="new_name_of_metric" placeholder="new name of metric">
-                                    </div>
-                                </div>
-                                <div>
-                                    <button type="submit" class="ui large secondary submit button">
-                                        <i>Update metric</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                     <form action="/logged/find" method="post" class="ui form">
                         <div class="ui stacked segment">
                             <div>
@@ -102,8 +62,58 @@
                             </div>
                         </div>
                     </form>
+                    <div class="ui main container">
+                        <% if(locals.metrics) {%>
+                        <% for (var i=0; i < metrics.length; i++) { %>
+                        <form action="/logged/delete/<%= metrics[i].key %>" method="post" class="ui form">
+                            <div class="ui action input">
+                                <%= metrics[i].value %>
+                                <input id=<%= metrics[i].key %> type="text" value="<%= metrics[i].value %>" onchange="update(this.id, this.value)">
+                                <button type="submit" id=<%= metrics[i].key %> class="ui icon button">
+                                    <i class="delete icon"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <% } %>
+                        <% } %>
+                    </div>
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div>
+                                <button class="ui large secondary submit button">
+                                    <i>Update metric</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    //$(document).ready(function () {
+    function update(inputId, inputValue) {
+        /*var jsondata = JSON.stringify({
+            inputId: $("#"+inputId).val()
+        });*/
+        
+        var jsondata = JSON.stringify({
+            inputId: inputId,
+            inputValue: inputValue
+        });
+        $.ajax({
+            url: "http://localhost:8080/logged/update",
+            method: "POST",
+            data: jsondata,
+            contentType: "application/json",
+            success: function (data) { alert("success") },
+            error: function (errMsg) {
+                alert(JSON.stringify(errMsg));
+            }
+        });
+    }
+    //});
+</script>

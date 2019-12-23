@@ -1,10 +1,12 @@
 import { UsersDB } from "./dataBase/userDB";
+import { MetricsDB } from "./dataBase/metricsDB";
 
 //import { emptyField } from './blindage/emptyField'
 
 let express = require("express")
 let bodyParser = require('body-parser')
 let app = express();
+let id;
 
 //Middleware
 
@@ -45,6 +47,7 @@ app.post('/signIn', (req : any,res : any) => {
         if (err) {
             res.render('pages/signIn',{error: "You need to write valid email and password"})
         } else {
+            id = req.body.email + req.body.password
             res.redirect('/logged')
         } 
     })
@@ -67,31 +70,31 @@ app.post('/signUp', (req : any,res : any) => {
 app.post('/logged/add', (req : any,res : any) => {
     if (req.body.name_of_metric === undefined || req.body.name_of_metric ===  "") {
         res.render('pages/logged',{error: "You need to write something"})
+        return
     }
-    console.log(req.body.name_of_metric)
+    MetricsDB.insert(
+        req.body.name_of_metric,
+        id
+    )
     res.redirect('/logged')
-
 })
 
-app.post('/logged/delete', (req : any,res : any) => {
-    if (req.body.delete_name_of_metric === undefined || req.body.delete_name_of_metric ===  "") {
-        res.render('pages/logged',{error: "You need to write something"})
-    }
-    console.log(req.body.delete_name_of_metric)
+app.post('/logged/delete/:id', (req : any,res : any) => {
+    var metricID = req.params.id
+    MetricsDB.delete(metricID, () =>{})
     res.redirect('/logged')
-
 })
 
 app.post('/logged/update', (req : any,res : any) => {
-    if (req.body.old_name_of_metric === undefined || req.body.old_name_of_metric ===  "" || req.body.new_name_of_metric === undefined || req.body.new_name_of_metric ===  "") {
-        res.render('pages/logged',{error: "You need to write something"})
-    }
-    console.log(req.body.new_name_of_metric)
-    res.redirect('/logged')
+    MetricsDB.delete(req.body.inputId, () =>{
+        MetricsDB.insert(req.body.inputValue, req.body.inputId)
+    })
 })
 
 app.post('/logged/find', (req : any,res : any) => {
-    res.render('ok ca marche')
+    MetricsDB.get(id, (listMetrics : any) => {
+        res.render('pages/logged', {metrics: listMetrics})
+    })
 })
 
 const PORT = 8080;
