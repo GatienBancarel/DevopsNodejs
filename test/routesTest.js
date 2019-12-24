@@ -1,6 +1,0 @@
-var expect  = require('chai').expect;
-var sinon = require('sinon');
-
-it('verifier 1=1', function() {
-        expect(1).to.equal(1);//test
-});

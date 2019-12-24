@@ -6,7 +6,7 @@ export class UsersDB {
 
     public static db = level("Users")
 
-	public static insert(firstname:string, lastname:string, email:string, password: string) {
+	public static insert(firstname:string, lastname:string, email:string, password: string, callback: ()=>void) {
         UsersDB.db.open()
 	    UsersDB.db.put(email+password, JSON.stringify({
             firstname: firstname,
@@ -16,6 +16,7 @@ export class UsersDB {
         }), function (err) {
             if (err) return console.log('insertion fail', err) // some kind of I/O error
             else console.log("insertion valid")
+            callback()
             UsersDB.db.close()
         })
     }

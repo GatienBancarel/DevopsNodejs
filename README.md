@@ -1,7 +1,7 @@
 # Project Nodejs
 This is the project done in *TecnologyWeb* class and wich will be used for the *DevOps* project as well.
 
-Afin de repondre au problematique du sujet nous avons réalisé un site permettant de suivre l'évolution de votre taille dans le temps, vous pouvez entrez vos taille, supprimé certaines valeurs ou les modifiers si elles sont éronés, ensuite il est possible d'afficher un graphique de l'évolution de votre taille dans le temps.
+In order to respond to the problematic of the subject, we realized a website that allow you to follow the evolution of you size over time. You can submit your size, delete certain value or modify them if they are wrong, after that you will be able to display a graph of the evolution of your size over time.
 
 ## Getting Started
 
@@ -30,20 +30,20 @@ With the home route we can access the home page in which we can get to the signI
 
 ### Running the tests
 
-`npm start`
+`npm test`
 
 
 ## Problems we encountered
 
- faire des tests en type script 
- transiter des données entre la vue et le middleware et vise vers ca (ajax)
-courbe d'apprentissage de la syntaxe typescript difficle 
+ To do tests of TypeScript
+ Manage the data exchange from the View to the MiddleWare and vice versa
+ The Apprehension of TypeScript which was really difficult
 
 
-## axe d'amélioration
+## area for improvement
 
-différencier la base level db pour les tests et pour l'app 
-isoler la logique du main.ts dans des fichiers 
+Distinguish the database from LevelDB for the test and for the application
+Isolate the logic of the main.ts in some files.
 
 ## License
 

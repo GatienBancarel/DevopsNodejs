@@ -6,10 +6,11 @@ export class MetricsDB {
 
     public static db = level("Metrics")
 
-	public static insert(metric:number, id: string) {
+	public static insert(metric:number, id: string, callback: ()=>void) {
 	   MetricsDB.db.put( id+ (new Date().getTime()), metric, function (err) {
             if (err) return console.log('insertion fail', err) // some kind of I/O error
             else console.log(id+ (new Date().getTime()))
+            callback()
         })
     }
 
@@ -33,6 +34,14 @@ export class MetricsDB {
         .on('end', function() {
             callback(listMetrics)
         })
+    }
+
+    public static clear(callback: ()=>void) {
+       MetricsDB.db.open()
+       MetricsDB.db.clear(function (err) {
+            callback()
+        });
+       MetricsDB.db.close()
     }
 
 }

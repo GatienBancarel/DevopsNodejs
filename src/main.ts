@@ -81,9 +81,11 @@ app.post('/signUp', (req: any, res: any) => {
             req.body.first_name,
             req.body.last_name,
             req.body.email,
-            req.body.password
+            req.body.password,
+            ()=> {
+                res.redirect('/logged')
+            }
         )
-        res.redirect('/logged')
     }
 })
 
@@ -94,9 +96,12 @@ app.post('/logged/add', (req: any, res: any) => {
     }
     MetricsDB.insert(
         req.body.name_of_metric,
-        id
+        id,
+        () => {
+            res.redirect('/logged')
+        }
     )
-    res.redirect('/logged')
+    
 })
 
 app.post('/logged/delete/:id', (req: any, res: any) => {
@@ -107,7 +112,7 @@ app.post('/logged/delete/:id', (req: any, res: any) => {
 
 app.post('/logged/update', (req: any, res: any) => {
     MetricsDB.delete(req.body.inputId, () => {
-        MetricsDB.insert(req.body.inputValue, req.body.inputId)
+        MetricsDB.insert(req.body.inputValue, req.body.inputId, ()=> {})
     })
 })
 
@@ -119,4 +124,5 @@ app.post('/logged/find', (req: any, res: any) => {
 
 const PORT = 8080;
 app.listen(PORT)
+
 
