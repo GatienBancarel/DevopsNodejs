@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>HOME</title>
+    <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        function update(inputId, inputValue) {
+            var jsondata = JSON.stringify({
+                inputId: inputId,
+                inputValue: inputValue
+            });
+            $.ajax({
+                url: "http://localhost:8080/logged/update",
+                method: "POST",
+                data: jsondata,
+                contentType: "application/json",
+                success: function (data) { alert("success") },
+                error: function (errMsg) {
+                    alert(JSON.stringify(errMsg));
+                }
+            });
+        }
+        function onClickShowGraph() {
+            $.ajax({
+                url: "http://localhost:8080/logged/graph",
+                method: "GET",
+                success: function (data) {
+                    var chart = new CanvasJS.Chart("chartContainer", {
+                        animationEnabled: true,
+                        title: {
+                            text: "Graph of metrics"
+                        },
+                        axisX: {
+                            title: "number of metrics",
+                            valueFormatString: "##0.00",
+                            crosshair: {
+                                enabled: true,
+                                snapToDataPoint: true
+                            }
+                        },
+                        axisY: {
+                            title: "Size in cm",
+                            includeZero: false,
+                            valueFormatString: "##0.00",
+                            crosshair: {
+                                enabled: true,
+                                snapToDataPoint: true,
+                                labelFormatter: function (e) {
+                                    return "$" + CanvasJS.formatNumber(e.value, "##0.00");
+                                }
+                            }
+                        },
+                        data: [{
+                            type: "area",
+                            xValueFormatString: "$##0.00",
+                            yValueFormatString: "$##0.00",
+                            dataPoints: data.success
+                        }]
+                    });
+                    chart.render();
+                },
+                error: function (errMsg) {
+                    console.log(errMsg);
+                }
+            });
+        }
+    </script>
+
+</head>
+
+</html>
+
+<body class="pushable">
+    <div class="ui inverted menu  ">
+        <div class=" item"> <a href="/">Home</a></div>
+        <div class=" item"> <a href="/signIn">SignIn</a></div>
+        <div class=" item"> <a href="/signUp">SignUp</a> </div>
+        <div class=" item"> <a href="/signOut">SignOut</a> </div>
+    </div>
+    <div class="ui middle aligned center aligned grid">
+        <div class="ui vertical stripe segment">
+            <div class="ui inverted vertical masthead center aligned segment">
+                <div class="ui container">
+                    <div class="ui text container">
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-md-offset-3">
+                    <h1>Follow the evolution of your size </h1>
+                    <div class="ui main container">
+                        <% if(locals.error) {%>
+                        <div class="ui negative message">
+                            <%= error %>
+                        </div>
+                        <% } %>
+                    </div>
+                    <form action="/logged/add" method="post" class="ui form">
+                        <div class="ui stacked segment">
+                            <div class="field">
+                                <div class="field">
+                                    <div>
+                                        <label for="name_of_metric"></label>
+                                        <input type="text" name="name_of_metric" placeholder="Enter your size">
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="ui large secondary submit button">
+                                        <i>Add your size</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="/logged/find" method="post" class="ui form">
+                        <div class="ui stacked segment">
+                            <div>
+                                <button type="submit" class="ui large secondary submit button">
+                                    <i>Show your size</i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="ui main container">
+                        <% if(locals.metrics) {%>
+                        <% for (var i=0; i < metrics.length; i++) { %>
+                        <form action="/logged/delete/<%= metrics[i].key %>" method="post" class="ui form">
+                            <div class="ui action input">
+                                <%= metrics[i].value %>
+                                <input id=<%= metrics[i].key %> type="text" value="<%= metrics[i].value %>"
+                                    onchange="update(this.id, this.value)">
+                                <button type="submit" id=<%= metrics[i].key %> class="ui icon button">
+                                    <i class="delete icon"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <% } %>
+                        <% } %>
+                    </div>
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div>
+                                <button class="ui large secondary submit button">
+                                    <i>Save your update</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div>
+                                <button onclick="onClickShowGraph()" class="ui large secondary submit button">
+                                    <i>Show graph</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    </div>
+</body>
