@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>HOME</title>
+    <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
+    </script>
+
+</head>
+
+</html>
+
+<body class="pushable">
+    <div class="ui inverted menu  ">
+        <div class=" item"> <a href="/">Home</a></div>
+        <div class=" item"> <a href="/SignIn">SignIn</a></div>
+        <div class=" item"> <a href="/signUp">SignUp</a> </div>
+    </div>
+    <div class="ui middle aligned center aligned grid">
+        <div class="ui vertical stripe segment">
+            <div class="ui inverted vertical masthead center aligned segment">
+                <div class="ui container">
+                    <div class="column">
+                        <h2 class="ui inverted header">
+                            <div class="content">Sign in to your account</div>
+                        </h2>
+                        <form action="/signIn" method="post" class="ui large form">
+                            <div class="ui stacked segment">
+                                <div class="ui main container">
+                                    <% if(locals.error) {%>
+                                    <div class="ui negative message">
+                                        <%= error %>
+                                    </div>
+                                    <% } %>
+                                </div>
+                                <div class="field">
+                                    <div class="ui left icon input">
+                                        <i class="user icon"></i>
+                                        <input type="text" name="email" placeholder="email">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui left icon input">
+                                        <i class="lock icon"></i>
+                                        <input type="text" name="password" placeholder="password">
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="ui large secondary submit button">
+                                        <i>Login</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="ui message">New ? come
+                            <a href="/signUp">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

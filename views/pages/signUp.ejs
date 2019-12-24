@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>HOME</title>
+    <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
+    </script>
+
+</head>
+
+</html>
+
+<body class="pushable">
+    <div class="ui inverted menu  ">
+        <div class=" item"> <a href="/">Home</a></div>
+        <div class=" item"> <a href="/signIn">SignIn</a></div>
+        <div class=" item"> <a href="/signUp">SignUp</a> </div>
+    </div>
+    <div class="ui middle aligned center aligned grid">
+        <div class="ui vertical stripe segment">
+            <div class="ui inverted vertical  masthead center aligned segment">
+                <div class="ui  container">
+                    <div class=" column">
+                        <h2 class="ui inverted header">
+                            <div class="content">Sign Up to our project !</div>
+                        </h2>
+                        <form action ="/signUp" method="post" class="ui form">
+                            <div class="ui stacked segment">
+                                <div class="ui main container">
+                                    <% if(locals.error) {%>
+                                    <div class="ui negative message">
+                                        <%= error %>
+                                    </div>
+                                    <% } %>
+                                </div>
+                                <div class="field">
+                                    <div>
+                                        <label for="first_name"></label>
+                                        <input type="text" name="first_name" placeholder="first_name">
+                                    </div>
+                                </div>
+                                <div class=" field">
+                                    <div>
+                                        <label for="last_name"></label>
+                                        <input type="text" name="last_name" placeholder="last_name">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div>
+                                        <label for="email"></label>
+                                        <input type="text" name="email" placeholder="email">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div>
+                                        <label for="password"></label>
+                                        <input type="text" name="password" placeholder="password">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div>
+                                        <label for="confirmation password"></label>
+                                        <input type="text" name="password_confirmation" placeholder="password confirmation">
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" class="ui large secondary submit button">
+                                        <i>Sign Up</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
