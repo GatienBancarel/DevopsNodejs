@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha --reporter spec",
     "start": "nodemon -x ts-node src/main.ts"
   },
   "repository": {
@@ -27,6 +27,8 @@
     "level": "^6.0.0",
     "mocha": "^6.2.2",
     "nodemon": "^2.0.2",
+    "sinon": "^8.0.1",
+    "supertest": "^4.0.2",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3"
   }

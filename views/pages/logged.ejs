@@ -8,6 +8,68 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        function update(inputId, inputValue) {
+            var jsondata = JSON.stringify({
+                inputId: inputId,
+                inputValue: inputValue
+            });
+            $.ajax({
+                url: "http://localhost:8080/logged/update",
+                method: "POST",
+                data: jsondata,
+                contentType: "application/json",
+                success: function (data) { alert("success") },
+                error: function (errMsg) {
+                    alert(JSON.stringify(errMsg));
+                }
+            });
+        }
+        function onClickShowGraph () {
+            $.ajax({
+                url: "http://localhost:8080/logged/graph",
+                method: "GET",
+                success: function (data) {
+                    var chart = new CanvasJS.Chart("chartContainer", {
+                        animationEnabled: true,
+                        title: {
+                            text: "Graph of metrics"
+                        },
+                        axisX: {
+                            valueFormatString: "Time",
+                            crosshair: {
+                                enabled: true,
+                                snapToDataPoint: true
+                            }
+                        },
+                        axisY: {
+                            title: "value of metrics",
+                            includeZero: false,
+                            valueFormatString: "$##0.00",
+                            crosshair: {
+                                enabled: true,
+                                snapToDataPoint: true,
+                                labelFormatter: function (e) {
+                                    return "$" + CanvasJS.formatNumber(e.value, "##0.00");
+                                }
+                            }
+                        },
+                        data: [{
+                            type: "area",
+                            xValueFormatString: "$##0.00",
+                            yValueFormatString: "$##0.00",
+                            dataPoints: data.success
+                        }]
+                    });
+                    chart.render();
+                },
+                error: function (errMsg) {
+                    console.log(errMsg);
+                }
+            });
+        }
+    </script>
 
 </head>
 
@@ -68,7 +130,8 @@
                         <form action="/logged/delete/<%= metrics[i].key %>" method="post" class="ui form">
                             <div class="ui action input">
                                 <%= metrics[i].value %>
-                                <input id=<%= metrics[i].key %> type="text" value="<%= metrics[i].value %>" onchange="update(this.id, this.value)">
+                                <input id=<%= metrics[i].key %> type="text" value="<%= metrics[i].value %>"
+                                    onchange="update(this.id, this.value)">
                                 <button type="submit" id=<%= metrics[i].key %> class="ui icon button">
                                     <i class="delete icon"></i>
                                 </button>
@@ -86,34 +149,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div>
+                                <button onclick="onClickShowGraph()" class="ui large secondary submit button">
+                                    <i>Show graph</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script>
-    //$(document).ready(function () {
-    function update(inputId, inputValue) {
-        /*var jsondata = JSON.stringify({
-            inputId: $("#"+inputId).val()
-        });*/
-        
-        var jsondata = JSON.stringify({
-            inputId: inputId,
-            inputValue: inputValue
-        });
-        $.ajax({
-            url: "http://localhost:8080/logged/update",
-            method: "POST",
-            data: jsondata,
-            contentType: "application/json",
-            success: function (data) { alert("success") },
-            error: function (errMsg) {
-                alert(JSON.stringify(errMsg));
-            }
-        });
-    }
-    //});
-</script>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
