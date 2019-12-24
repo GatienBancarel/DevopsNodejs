@@ -11,7 +11,7 @@ To launch our project you will need to clone our project on your computer and op
 If you got some errors use `npm i @types/node` to install the requiered elements.
 ### Architecture
 
-Our project uses a main.ts file where we created our server and in wich we specified the routes of the project. We got 4 main routes : 
+Our project uses a main.ts file where we created our server and in wich we specified the routes of the project. We got 5 main routes : 
                                 - home 
                                 - signIn
                                 - signUp
@@ -20,7 +20,7 @@ Our project uses a main.ts file where we created our server and in wich we speci
                              
 
 Each of these routes have a different purpose.
-With the home route we can access the home page in which we can get to the signIn and the signUp page. These page let the users sign in and sign up following his desires. 
+With the home route we can access the home page in which we can get to the signIn and the signUp page. These pages let the users sign in and sign up following his desires. 
 
 ### Running the tests
 
