@@ -59,8 +59,8 @@ app.post('/signIn', (req: any, res: any) => {
         res.render('pages/signIn', { error: "You need to write something" })
         return
     }
-    UsersDB.exist(req.body.email, req.body.password, (err: any) => {
-        if (err) {
+    UsersDB.exist(req.body.email, req.body.password, (isExist: any) => {
+        if (!isExist) {
             res.render('pages/signIn', { error: "You need to write valid email and password" })
         } else {
             id = req.body.email + req.body.password

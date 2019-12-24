@@ -7,6 +7,7 @@ export class UsersDB {
     public static db = level("Users")
 
 	public static insert(firstname:string, lastname:string, email:string, password: string) {
+        UsersDB.db.open()
 	    UsersDB.db.put(email+password, JSON.stringify({
             firstname: firstname,
             lastname: lastname,
@@ -15,25 +16,29 @@ export class UsersDB {
         }), function (err) {
             if (err) return console.log('insertion fail', err) // some kind of I/O error
             else console.log("insertion valid")
+            UsersDB.db.close()
         })
     }
-    
-    public static get(id: string) {
-        UsersDB.db.get(id, function (err, value) {
-            if (err) return console.log('fail recuperation id', err) // likely the key was not found
-         
-            console.log('user=' + JSON.parse(value))
+
+    public static exist(email: string, password: string, callback: (isExist: Boolean) => void) {
+        UsersDB.db.open()
+       UsersDB.db.get(email+password, function (err, value) {
+            if (err) {
+                callback(false)
+                return console.log('fail connexion', err) // likely the key was not found
+            } else {
+                callback(true)
+                console.log('user=' + JSON.parse(value))
+            }
+            UsersDB.db.close()
           })
     }
 
-    public static exist(email: string, password: string, callback: (err: Error) => void) {
-       UsersDB.db.get(email+password, function (err, value) {
-            callback(err)
-            if (err) {
-                return console.log('fail connexion', err) // likely the key was not found
-            } else {
-                console.log('user=' + JSON.parse(value))
-            }
-          })
+    public static delete(email: string, password: string, callback: ()=> void) {
+       UsersDB.db.open()
+       UsersDB.db.del(email+password, function (err) {
+        callback()
+        UsersDB.db.close()
+      });
     }
 }
