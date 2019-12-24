@@ -32,6 +32,11 @@ app.get('/signUp', (req: any, res: any) => {
     res.render('pages/signUp', { test: 'fc' })
 })
 
+app.get('/signOut', (req: any, res: any) => {
+    id=0
+    res.render('pages/home', { test: 'fc' })
+})
+
 app.get('/logged', (req: any, res: any) => {
     res.render('pages/logged', { test: 'fc' })
 })
@@ -44,8 +49,7 @@ app.get('/logged/graph', (req: any, res: any) => {
         }
         console.log(datapoints)
         res.send({success: datapoints});
-    })
-    
+    }) 
 })
 
 //Routes post
@@ -69,6 +73,8 @@ app.post('/signUp', (req: any, res: any) => {
     if (req.body.first_name === undefined || req.body.first_name === "" || req.body.password === undefined || req.body.password === "" || req.body.last_name === undefined || req.body.last_name === "" || req.body.password_confirmation === undefined || req.body.password_confirmation === "" || req.body.email === undefined || req.body.email === "") {
         res.render('pages/signUp', { error: "You need to write something" })
         return
+    } else if (req.body.password != req.body.password_confirmation ) {
+        res.render('pages/signUp',{error: "Your confirmation password is incorrect"})
     } else {
         id = req.body.email + req.body.password
         UsersDB.insert(
@@ -82,8 +88,8 @@ app.post('/signUp', (req: any, res: any) => {
 })
 
 app.post('/logged/add', (req: any, res: any) => {
-    if (req.body.name_of_metric === undefined || req.body.name_of_metric === "") {
-        res.render('pages/logged', { error: "You need to write something" })
+    if (req.body.name_of_metric === undefined || req.body.name_of_metric === "" || isNaN(req.body.name_of_metric)) {
+        res.render('pages/logged', { error: "You need to write a numnber" })
         return
     }
     MetricsDB.insert(

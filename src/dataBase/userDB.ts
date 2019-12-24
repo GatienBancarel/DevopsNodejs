@@ -6,7 +6,7 @@ export class UsersDB {
 
     public static db = level("Users")
 
-	public static insert(firstname:string, lastname:string, email:string, password: number) {
+	public static insert(firstname:string, lastname:string, email:string, password: string) {
 	    UsersDB.db.put(email+password, JSON.stringify({
             firstname: firstname,
             lastname: lastname,

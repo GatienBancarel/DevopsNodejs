@@ -26,7 +26,7 @@
                 }
             });
         }
-        function onClickShowGraph () {
+        function onClickShowGraph() {
             $.ajax({
                 url: "http://localhost:8080/logged/graph",
                 method: "GET",
@@ -37,16 +37,17 @@
                             text: "Graph of metrics"
                         },
                         axisX: {
-                            valueFormatString: "Time",
+                            title: "number of metrics",
+                            valueFormatString: "##0.00",
                             crosshair: {
                                 enabled: true,
                                 snapToDataPoint: true
                             }
                         },
                         axisY: {
-                            title: "value of metrics",
+                            title: "Size in cm",
                             includeZero: false,
-                            valueFormatString: "$##0.00",
+                            valueFormatString: "##0.00",
                             crosshair: {
                                 enabled: true,
                                 snapToDataPoint: true,
@@ -80,6 +81,7 @@
         <div class=" item"> <a href="/">Home</a></div>
         <div class=" item"> <a href="/signIn">SignIn</a></div>
         <div class=" item"> <a href="/signUp">SignUp</a> </div>
+        <div class=" item"> <a href="/signOut">SignOut</a> </div>
     </div>
     <div class="ui middle aligned center aligned grid">
         <div class="ui vertical stripe segment">
@@ -90,7 +92,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-md-offset-3">
-                    <h1>Welcome </h1>
+                    <h1>Follow the evolution of your size </h1>
                     <div class="ui main container">
                         <% if(locals.error) {%>
                         <div class="ui negative message">
@@ -104,12 +106,12 @@
                                 <div class="field">
                                     <div>
                                         <label for="name_of_metric"></label>
-                                        <input type="text" name="name_of_metric" placeholder="name of metric">
+                                        <input type="text" name="name_of_metric" placeholder="Enter your size">
                                     </div>
                                 </div>
                                 <div>
                                     <button type="submit" class="ui large secondary submit button">
-                                        <i>Add metric</i>
+                                        <i>Add your size</i>
                                     </button>
                                 </div>
                             </div>
@@ -119,7 +121,7 @@
                         <div class="ui stacked segment">
                             <div>
                                 <button type="submit" class="ui large secondary submit button">
-                                    <i>Find metric</i>
+                                    <i>Show your size</i>
                                 </button>
                             </div>
                         </div>
@@ -144,7 +146,7 @@
                         <div class="field">
                             <div>
                                 <button class="ui large secondary submit button">
-                                    <i>Update metric</i>
+                                    <i>Save your update</i>
                                 </button>
                             </div>
                         </div>
@@ -161,8 +163,7 @@
                 </div>
             </div>
         </div>
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     </div>
 </body>
-
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
