@@ -31,4 +31,5 @@ Not done yet
 This project is licenced under the ISC license.
 
 ## About us 
+
 We are **Gatien Bancarel**, **William Ren** and **Josquin Clavier**. We did the project together.
