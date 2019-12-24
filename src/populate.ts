@@ -1,7 +1,6 @@
 import { UsersDB } from "./dataBase/userDB";
 import { MetricsDB } from "./dataBase/metricsDB";
 
-
 UsersDB.insert(
     "gatien",
     "bancarel",
@@ -21,8 +20,10 @@ MetricsDB.insert(
     "gatien.bancarel@edu.ece.fr"+"maux de passe"
 )
 
-
 MetricsDB.insert(
     20,
     "josquin.clavier@edu.ece.fr"+"mot de passe"
 )
+
+
+

@@ -1,10 +1,10 @@
 # Project Nodejs
 This is the project done in *TecnologyWeb* class and wich will be used for the *DevOps* project as well.
 
-
 ## Getting Started
 
-To launch our project you will need to clone our project on your computer and open it in a code editor. Then use this command to launch it :
+To launch our project you will need to clone our project on your computer and open it in a code editor. 
+Implement the population of the database with the command `npm run populate` Then use this command to launch it :
 
             - `npm start`
 
@@ -26,10 +26,15 @@ With the home route we can access the home page in which we can get to the signI
 
 Not done yet
 
+## Problems we encountered
+
+ 
+
 ## License 
 
 This project is licenced under the ISC license.
 
 ## About us 
-
 We are **Gatien Bancarel**, **William Ren** and **Josquin Clavier**. We did the project together.
+
+
