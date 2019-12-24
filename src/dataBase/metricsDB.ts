@@ -7,7 +7,7 @@ export class MetricsDB {
     public static db = level("Metrics")
 
 	public static insert(metric:string, id: string) {
-	    MetricsDB.db.put( id+ (new Date().getTime()), metric, function (err) {
+	   MetricsDB.db.put( id+ (new Date().getTime()), metric, function (err) {
             if (err) return console.log('insertion fail', err) // some kind of I/O error
             else console.log(id+ (new Date().getTime()))
         })
